@@ -24,4 +24,14 @@ public class PageController {
         // 5.DispatcherServlet会将页面响应到客户端
     }
 
+    @RequestMapping("log/log_list")
+    public String doLogUI() {
+        return "sys/log_list";
+    }
+
+    @RequestMapping("doPageUI")
+    public String doPageUI() {
+        return "common/page";
+    }
+
 }
