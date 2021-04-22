@@ -10,6 +10,7 @@ import java.util.List;
  * @author gudian1618
  * @version v1.0
  * @date 2021/4/22 9:20 下午
+ * 借助此对象封装数据层返回的分页查询结果,并计算分页信息
  */
 
 @Data
@@ -25,12 +26,12 @@ public class PageObject<T> implements Serializable {
     /**
      * 总记录数
      */
-    private Integer rowCount;
+    private Long rowCount;
 
     /**
      * 总页数
      */
-    private Integer pageCount;
+    private Long pageCount;
 
     /**
      * 页面大小
@@ -40,9 +41,9 @@ public class PageObject<T> implements Serializable {
     /**
      * 当前页码值
      */
-    private Integer pageCurrent;
+    private Long pageCurrent;
 
-    public PageObject(List<T> records, Integer rowCount, Integer pageSize, Integer pageCurrent) {
+    public PageObject(List<T> records, Long rowCount, Integer pageSize, Long pageCurrent) {
         this.records = records;
         this.rowCount = rowCount;
         this.pageSize = pageSize;
