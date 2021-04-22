@@ -17,6 +17,6 @@ public interface SysLogService {
      * @param pageCurrent 当前页码值
      * @return 当前页记录+分页信息
      */
-    PageObject<SysLog> findPageObjects(String username, String pageCurrent);
+    PageObject<SysLog> findPageObjects(String username, Long pageCurrent);
 
 }
