@@ -36,6 +36,7 @@ public class SysLogController {
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
     public JsonResult doHandleRuntimeException(RuntimeException e) {
+        System.out.println("SysLogController.doHandleRuntimeException");
         e.printStackTrace();
         return new JsonResult(e);
     }
