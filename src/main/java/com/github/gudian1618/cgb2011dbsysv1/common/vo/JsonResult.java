@@ -10,6 +10,7 @@ import java.io.Serializable;
  * @version v1.0
  * @date 2021/4/24 9:30 下午
  * 最后生成序列化的ID值
+ * 借助此对象封装控制层返回客户端数据: 要求这些数据必须有状态
  */
 
 @Data
