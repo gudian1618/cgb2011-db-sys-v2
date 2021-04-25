@@ -61,23 +61,29 @@
         // 1.定义请求参数
         // 参数名一定要于服务端方法参数有对应关系
         // var params = "pageCurrent";
-        var params = {"pageCurrent": 1}
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        if (!pageCurrent) {
+            pageCurrent = 1;
+        }
+        var params = {"pageCurrent": pageCurrent}
         // 2.定义请求的url
         var url = "log/doFindPageObjects"
         // 3.发送异步请求获取数据
         $.getJSON(url, params, function (result) {
             // console.log("jsonResult", result);
             doHandleQueryResponseResult(result);
-
         })
     }
 
     function doHandleQueryResponseResult(result) {
         if (result.state == 1) {
             // 1.更新日志列表页面
+            // 1.1 result为服务端返回的jsonResult对象对应的数据
+            // 1.2 result.data为服务端返回的pageObject对象
+            // 1.3 result.data.records为服务端PageObject对象中的睿智列表信息
             doSetTableBodyRows(result.data.records)
             // 2.更新日志分页信息
-
+            doSetPagination(result.data);
         } else {
             alert(result.message)
         }
