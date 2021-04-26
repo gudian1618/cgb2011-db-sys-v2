@@ -52,9 +52,17 @@
         // $("#pageId").load("doPageUI", function () {
         //     doGetObjects();
         // });
+
         // 如上写法的简化形式,就是下面的写法
         $("#pageId").load("doPageUI", doGetObjects)
+
+        // 查询按钮事件注册
+        $(".input-group-btn .btn-search").on("click", ".btn-search", doQueryObjects)
     })
+
+    function doQueryObjects() {
+        doGetObjects();
+    }
 
     // 执行分页查询,并将查询结果更新到页面
     function doGetObjects() {
@@ -66,6 +74,10 @@
             pageCurrent = 1;
         }
         var params = {"pageCurrent": pageCurrent}
+
+        // 查询时获取用户输入的用户名
+
+
         // 2.定义请求的url
         var url = "log/doFindPageObjects"
         // 3.发送异步请求获取数据
