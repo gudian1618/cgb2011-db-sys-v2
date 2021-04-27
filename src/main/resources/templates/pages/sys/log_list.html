@@ -57,10 +57,14 @@
         $("#pageId").load("doPageUI", doGetObjects)
 
         // 查询按钮事件注册
-        $(".input-group-btn .btn-search").on("click", ".btn-search", doQueryObjects)
+        $(".input-group-btn").on("click", ".btn-search", doQueryObjects)
     })
 
+    // 基于查询按钮的点击事件执行日志查询操作
     function doQueryObjects() {
+        // 1.初始化当前页码值
+        $("#pageId").data("pageCurrent", 1);
+        // 2.执行查询操作,重用doGetObjects函数
         doGetObjects();
     }
 
@@ -76,7 +80,12 @@
         var params = {"pageCurrent": pageCurrent}
 
         // 查询时获取用户输入的用户名
-
+        var username = $("#searchNameId").val();
+        // 向json对象中动态添加key和value
+        // params后面的变量的参数名不能随意定义,要与访问的控制层方法参数一致
+        if (username) {
+            params.username = username;
+        }
 
         // 2.定义请求的url
         var url = "log/doFindPageObjects"
