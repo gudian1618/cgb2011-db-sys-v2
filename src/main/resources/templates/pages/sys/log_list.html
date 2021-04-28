@@ -60,7 +60,37 @@
         $(".input-group-btn")
             .on("click", ".btn-search", doQueryObjects)
             .on("click", ".btn-delete", doDeleteObjects)
+
+        // thread中全选checkbox对象的事件注册
+        $("#checkAll").change(doChangeTBodyCheckBoxState)
+
+        // tbody中checkbox对象的时间注册
+        // $(".cBox").change(doChangeTheadCheckBoxState); // 不成立,页面加载完没有生成该对象,无法获取
+        $("#tbodyId").on("change", ".cBox", doChangeTheadCheckBoxState);
     })
+
+    // 修改thread中checkbox对象的状态
+    function doChangeTheadCheckBoxState() {
+        // 1.定义变量表示,默认值为true
+        var flag = true;
+        // 2.获取所有tbody中checkbox对象的值,并进行逻辑与操作
+        $("#tbodyId input:checkbox")
+            .each(function () {
+                flag = flag && $(this).prop("checked");
+            });
+        // 3.修改thread中checkbox对象状态
+        $("#checkAll").prop("checked", flag);
+    }
+
+
+    // 修改tbody中checkbox对象的状态
+    function doChangeTBodyCheckBoxState() {
+        // 1.获取当前点击对象checkbox的状态
+        var threadCheckBoxState = $(this).prop('checked');
+        // 2.修改tbody中checkbox对象状态
+        $("#tbodyId input:checkbox").prop('checked', threadCheckBoxState);
+
+    }
 
     // 获取页面上用户选中的tbody中的checkbox对象的值
     function doGetCheckedIds() {
@@ -115,6 +145,9 @@
 
     // 执行分页查询,并将查询结果更新到页面
     function doGetObjects() {
+        // 全选换页取消生效,每次查询重新重置
+        $("#checkAll").prop("checked", false);
+        // debugger
         // 1.定义请求参数
         // 参数名一定要于服务端方法参数有对应关系
         // var params = "pageCurrent";
