@@ -58,7 +58,7 @@ public class SysLogServiceImpl implements SysLogService {
             throw new ServiceException("没有查找到对应的记录");
         }
         // 3.查询当前页记录
-        int pageSize = 3;
+        int pageSize = 10;
         long startIndex = (pageCurrent - 1) * pageSize;
         List<SysLog> records = sysLogDao.findPageObjects(username, startIndex, pageSize);
         // 4.对查询结果进行封装

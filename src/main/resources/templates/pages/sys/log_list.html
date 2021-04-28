@@ -128,11 +128,26 @@
         $.post(url, params, function (result) {
             if (result.state == 1) {
                 alert(result.message);
-                doGetObjects();
+                // doGetObjects();
+                doRefreshAfterDeleteOK();
             } else {
                 alert(result.message);
             }
         });
+    }
+
+    // 删除成功以后的刷新操作
+    function doRefreshAfterDeleteOK() {
+        // 1.修改页码值
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        var pageCount = $("#pageId").data("pageCount");
+        var checkAllState = $("#checkAll").prop("checked")
+        if (checkAllState && pageCurrent == pageCount && pageCurrent > 1) {
+            pageCurrent--;
+            $("#pageId").data("pageCurrent", pageCurrent);
+        }
+        // 2.从新执行查询
+        doGetObjects();
     }
 
     // 基于查询按钮的点击事件执行日志查询操作
@@ -184,8 +199,13 @@
             // 2.更新日志分页信息
             doSetPagination(result.data);
         } else {
-            alert(result.message)
+            // alert(result.message)
+            doSetQueryErrors(result.message);
         }
+    }
+
+    function doSetQueryErrors() {
+        $("#tbodyId").html(`<tr><td colspan='7'>${message}</td></tr>`);
     }
 
     // 更新tbody中的日志列表信息
