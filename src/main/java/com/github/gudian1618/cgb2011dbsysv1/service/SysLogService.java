@@ -12,6 +12,13 @@ import com.github.gudian1618.cgb2011dbsysv1.entity.SysLog;
 public interface SysLogService {
 
     /**
+     * 基于id删除信息
+     * @param ids
+     * @return
+     */
+    int deleteObjects(int... ids);
+
+    /**
      * 基于条件进行日志信息的分页查询操作
      * @param username 查询条件
      * @param pageCurrent 当前页码值

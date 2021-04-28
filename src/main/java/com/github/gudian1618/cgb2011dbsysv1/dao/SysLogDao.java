@@ -16,6 +16,14 @@ import java.util.List;
 public interface SysLogDao {
 
     /**
+     * 基于id值执行删除操作
+     * @param ids
+     * @return mybatis中处理可变参数时, 底层默认会将可变参数存储到一个array对象中
+     */
+    // int deleteObjects(@Param("ids") int... ids);
+    int deleteObjects(int... ids);
+
+    /**
      * 基于查询条件统计用户行为的日志记录
      * @param username
      * @return
@@ -29,6 +37,6 @@ public interface SysLogDao {
      * @param pageSize 当前页的页面大小(每页最多显示多少条)
      * @return
      */
-    List<SysLog> findPageObjects(@Param("username") String username, Long startIndex, Integer pageSize);
+    List<SysLog> findPageObjects(@Param("username") String username, long startIndex, int pageSize);
 
 }

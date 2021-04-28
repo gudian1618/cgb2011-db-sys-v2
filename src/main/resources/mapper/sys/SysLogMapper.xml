@@ -13,6 +13,22 @@
         </where>
     </sql>
 
+    <delete id="deleteObjects">
+        delete from sys_logs
+        <where>
+            <choose>
+                <when test="array!=null and array.length>0">
+                    <foreach collection="array" separator="or" item="id">
+                        id=#{id}
+                    </foreach>
+                </when>
+                <otherwise>
+                    1==2
+                </otherwise>
+            </choose>
+        </where>
+    </delete>
+
     <select id="findPageObjects" resultType="com.github.gudian1618.cgb2011dbsysv1.entity.SysLog">
         select *
         <include refid="queryWhereId"/>
