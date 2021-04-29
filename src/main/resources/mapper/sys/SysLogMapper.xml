@@ -13,6 +13,8 @@
         </where>
     </sql>
 
+
+
     <delete id="deleteObjects">
         delete from sys_logs
         <where>
