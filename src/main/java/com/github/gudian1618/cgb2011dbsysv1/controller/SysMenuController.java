@@ -22,6 +22,17 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
+    @RequestMapping("doFindZtreeMenuNodes")
+    public JsonResult doFindZtreeMenuNodes() {
+        return new JsonResult(sysMenuService.findZtreeMenuNodes());
+    }
+
+    @RequestMapping("doDeleteObject")
+    public JsonResult doDeleteObject(Integer id) {
+        sysMenuService.deleteObjects(id);
+        return new JsonResult("delete ok");
+    }
+
     @RequestMapping("doFindObjects")
     public JsonResult doFindObjects() {
         return new JsonResult(sysMenuService.findObjects());

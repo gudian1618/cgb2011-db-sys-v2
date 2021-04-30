@@ -1,5 +1,6 @@
 package com.github.gudian1618.cgb2011dbsysv1.service.impl;
 
+import com.github.gudian1618.cgb2011dbsysv1.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysMenuDao;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,18 @@ public class SysMenuServiceImpl implements SysMenuService {
     private SysMenuDao sysMenuDao;
 
     @Override
+    public List<Node> findZtreeMenuNodes() {
+
+        return sysMenuDao.findZtreeMenuNodes();
+    }
+
+    @Override
+    public int deleteObjects(Integer id) {
+        return 0;
+    }
+
+    @Override
     public List<Map<String, Object>> findObjects() {
-
-
         return sysMenuDao.findObjects();
     }
 }

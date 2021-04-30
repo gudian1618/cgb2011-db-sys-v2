@@ -1,5 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.service;
 
+import com.github.gudian1618.cgb2011dbsysv1.common.vo.Node;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,10 @@ import java.util.Map;
  */
 
 public interface SysMenuService {
+
+    List<Node> findZtreeMenuNodes();
+
+    int deleteObjects(Integer id);
 
     List<Map<String, Object>> findObjects();
 
