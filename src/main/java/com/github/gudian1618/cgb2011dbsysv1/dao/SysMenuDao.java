@@ -24,12 +24,20 @@ public interface SysMenuDao {
     List<Node> findZtreeMenuNodes();
 
     /**
+     * 基于查询的id,删除菜单自身信息
+     * @param id
+     * @return
+     */
+    @Select("delete from sys_menus where id=#{id}")
+    int deleteObject(Integer id);
+
+    /**
      * 基于菜单统计子菜单的个数
      * @param id
      * @return
      */
     @Select("select count(*) from sys_menus where parentId=#{id}")
-    int getCHildCount(Integer id);
+    int getChildCount(Integer id);
 
     /**
      * 获取所有菜单信息,包含当前菜单对应的上级菜单的菜单名称
