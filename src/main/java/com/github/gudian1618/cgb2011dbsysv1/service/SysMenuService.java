@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.service;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.Node;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysMenu;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,13 @@ import java.util.Map;
  */
 
 public interface SysMenuService {
+
+    /**
+     * 保存菜单信息
+     * @param entity
+     * @return
+     */
+    int saveObject(SysMenu entity);
 
     List<Node> findZtreeMenuNodes();
 

@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.dao;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.Node;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,13 @@ import java.util.Map;
 
 @Mapper
 public interface SysMenuDao {
+
+    /**
+     * 持久化菜单对象
+     * @param entity
+     * @return
+     */
+    int insertObject(SysMenu entity);
 
     /**
      * 查询菜单的id,name,parentName

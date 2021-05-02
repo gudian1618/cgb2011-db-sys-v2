@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.controller;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.JsonResult;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysMenu;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,12 @@ public class SysMenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
+
+    @RequestMapping("doSaveObject")
+    public JsonResult doSaveObject(SysMenu entity) {
+        sysMenuService.saveObject(entity);
+        return new JsonResult(entity);
+    }
 
     @RequestMapping("doFindZtreeMenuNodes")
     public JsonResult doFindZtreeMenuNodes() {

@@ -4,6 +4,7 @@ import com.github.gudian1618.cgb2011dbsysv1.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysMenuDao;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysRoleMenuDao;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysMenu;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,18 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
+
+    @Override
+    public int saveObject(SysMenu entity) {
+        // 1.参数校验
+        if (entity==null) {
+            throw new IllegalArgumentException("保存对象不能为空");
+        }
+        // 2.保存菜单对象
+        int rows = sysMenuDao.insertObject(entity);
+        // TODO
+        return rows;
+    }
 
     @Override
     public List<Node> findZtreeMenuNodes() {

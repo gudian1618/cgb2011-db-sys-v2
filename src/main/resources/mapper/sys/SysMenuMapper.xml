@@ -3,6 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.gudian1618.cgb2011dbsysv1.dao.SysMenuDao">
 
+    <insert id="insertObject">
+        insert into sys_menus
+        (name,url,type,sort,note,parentId,permission,
+         createdTime,modifiedTime,createdUser,modifiedUser)
+        values
+        (#{name},#{url},#{type},#{sort},#{note},#{parentId},
+         #{permission},now(),now(),#{createdUser},#{modifiedUser})
+    </insert>
+
     <!--获取所有菜单信息,包含当前菜单对应的上级菜单的菜单名称-->
     <select id="findObjects" resultType="map">
         <!--方案1: 多表关联-->
@@ -16,7 +25,6 @@
                      where c.parentId=p.id) parentName
         from sys_menus c
     </select>
-
 
 
 </mapper>
