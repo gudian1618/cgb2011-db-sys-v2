@@ -18,6 +18,13 @@ import java.util.Map;
 public interface SysMenuDao {
 
     /**
+     * 更新修改对象
+     * @param entity
+     * @return
+     */
+    int updateObject(SysMenu entity);
+
+    /**
      * 持久化菜单对象
      * @param entity
      * @return

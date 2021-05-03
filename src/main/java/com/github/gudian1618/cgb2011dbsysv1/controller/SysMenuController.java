@@ -23,6 +23,12 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
+    @RequestMapping("doUpdateObject")
+    public JsonResult doUpdateObject(SysMenu entity) {
+        sysMenuService.updateObject(entity);
+        return new JsonResult(entity);
+    }
+
     @RequestMapping("doSaveObject")
     public JsonResult doSaveObject(SysMenu entity) {
         sysMenuService.saveObject(entity);

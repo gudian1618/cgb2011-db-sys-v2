@@ -11,6 +11,19 @@
         (#{name},#{url},#{type},#{sort},#{note},#{parentId},
          #{permission},now(),now(),#{createdUser},#{modifiedUser})
     </insert>
+    <update id="updateObject" parameterType="com.github.gudian1618.cgb2011dbsysv1.dao.SysMenuDao">
+        update sys_menus
+        set
+            name=#{name},
+            type=#{type},
+            sort=#{sort},
+            url=#{url},
+            parentId=#{parentId},
+            permission=#{permission},
+            modifiedUser=#{modifiedUser},
+            modifiedTime=now()
+        where id=#{id}
+    </update>
 
     <!--获取所有菜单信息,包含当前菜单对应的上级菜单的菜单名称-->
     <select id="findObjects" resultType="map">

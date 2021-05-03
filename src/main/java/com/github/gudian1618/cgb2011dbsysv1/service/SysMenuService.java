@@ -15,6 +15,13 @@ import java.util.Map;
 public interface SysMenuService {
 
     /**
+     * 更新菜单信息
+     * @param entity
+     * @return
+     */
+    int updateObject(SysMenu entity);
+
+    /**
      * 保存菜单信息
      * @param entity
      * @return
