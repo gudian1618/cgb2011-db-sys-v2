@@ -13,6 +13,19 @@
         </where>
     </sql>
 
+    <!--insert元素中的
+        1.useGeneratedKeys表示要使用的insert操作后主键值
+        2.keyProperty表示将主键值存储到参数对象的id属性上.-->
+    <insert id="insertObject"
+            parameterType="com.github.gudian1618.cgb2011dbsysv1.entity.SysRole"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            >
+--         select last_insert_id();
+        insert into sys_roles (name,note,createdUser,modifiedUser,createdTime,modifiedTime)
+        values (#{name},#{note},#{createdUser},#{modifiedUser},now(),now())
+    </insert>
+
     <select id="findPageObjects" resultType="com.github.gudian1618.cgb2011dbsysv1.entity.SysRole">
         select id,name,note,createdTime,modifiedTime,createdUser,modifiedUser
         <include refid="queryWhereId"/>

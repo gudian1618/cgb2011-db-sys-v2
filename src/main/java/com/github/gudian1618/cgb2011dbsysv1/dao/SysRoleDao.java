@@ -14,6 +14,15 @@ import java.util.List;
 @Mapper
 public interface SysRoleDao {
 
+
+
+    /**
+     * 保存角色自身信息
+     * @param entity
+     * @return
+     */
+    int insertObject(SysRole entity);
+
     /**
      * 查询总记录数
      * @param name

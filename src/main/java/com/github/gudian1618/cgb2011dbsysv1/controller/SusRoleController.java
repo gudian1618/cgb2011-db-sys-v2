@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.controller;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.JsonResult;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysRole;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,18 @@ public class SusRoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
+
+    @RequestMapping("doSaveObject")
+    public JsonResult doSaveObject(SysRole entity, Integer[] menuIds) {
+        sysRoleService.saveObject(entity, menuIds);
+        return new JsonResult("save ok");
+    }
+
+    @RequestMapping("doDeleteObject")
+    public JsonResult doDeleteObject(Integer id) {
+        sysRoleService.deleteObject(id);
+        return new JsonResult("delete ok");
+    }
 
     @RequestMapping("doFindPageObjects")
     public JsonResult doFindPageObjects(String name, Long pageCurrent) {
