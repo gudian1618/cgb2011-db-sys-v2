@@ -5,10 +5,10 @@
 
     <!--提取共性动态sql语句-->
     <sql id="queryWhereId">
-        from sys_logs
+        from sys_roles
         <where>
-            <if test="username!=null and username!=''">
-                username like concat("%",#{username},"%")
+            <if test="name!=null and name!=''">
+                name like concat("%",#{name},"%")
             </if>
         </where>
     </sql>
@@ -22,8 +22,8 @@
             keyProperty="id"
             >
 --         select last_insert_id();
-        insert into sys_roles (name,note,createdUser,modifiedUser,createdTime,modifiedTime)
-        values (#{name},#{note},#{createdUser},#{modifiedUser},now(),now())
+        insert into sys_roles (id,name,note,createdUser,modifiedUser,createdTime,modifiedTime)
+        values (null,#{name},#{note},#{createdUser},#{modifiedUser},now(),now())
     </insert>
 
     <select id="findPageObjects" resultType="com.github.gudian1618.cgb2011dbsysv1.entity.SysRole">

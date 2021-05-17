@@ -46,7 +46,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-   $(function(){   
+   $(function(){
 	  $("#pageId").load("doPageUI",function(){
 		  doGetObjects();
 	  });
@@ -55,7 +55,7 @@
 	  .on("click",".btn-add",doLoadEditUI)
 	  $("#tbodyId")
 	  .on("click",".btn-delete",doDeleteObject)
-	  .on("click",".btn-update",doLoadEditUI) 
+	  .on("click",".btn-update",doLoadEditUI)
    });
    function doLoadEditUI(){
 	   var title;
@@ -71,9 +71,9 @@
 			   if(result.state==1){
 				  result.data.id=id;//在结果中动态追加id
 				  $("#mainContentId").data("data",result.data);
-				  doLoadPageUI(title);//异步加载页面  
+				  doLoadPageUI(title);//异步加载页面
 			   }else{
-				  alert(result.message); 
+				  alert(result.message);
 			   }
 		   });
 	   }
@@ -100,14 +100,14 @@
 			   alert(result.message);
 		   }
 	   })
-	   
+
    }
    function doQueryObjects(){
 	   $("#pageId").data("pageCurrent",1);
 	   doGetObjects();
    }
    function doGetObjects(){
-	   debugger
+	   // debugger
 	   //1.params
 	   //获取在Page.html中绑定的当前页码值
 	   var pageCurrent=$("#pageId").data("pageCurrent");
@@ -127,7 +127,7 @@
 	   });
    }
    function doHandleResponseResult(result){
-	   
+
 	   if(result.state==1){
 		  doSetTableBodyRows(result.data.records);
 		  doSetPagination(result.data);//page.html
@@ -152,7 +152,7 @@
 	   tBody.append(tr);
    }
    function doSetTableBodyRows(records){
-	   
+
 	  //获取tbody对象,并清空
 	   var tBody=$("#tbodyId");
 	   tBody.empty();

@@ -14,8 +14,6 @@ import java.util.List;
 @Mapper
 public interface SysRoleDao {
 
-
-
     /**
      * 保存角色自身信息
      * @param entity
