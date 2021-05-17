@@ -31,6 +31,12 @@ public class SusRoleController {
         return new JsonResult("save ok");
     }
 
+    @RequestMapping("doUpdateObject")
+    public JsonResult doUpdateObject(SysRole entity, Integer[] menuIds) {
+        sysRoleService.saveObject(entity, menuIds);
+        return new JsonResult("update ok");
+    }
+
     @RequestMapping("doDeleteObject")
     public JsonResult doDeleteObject(Integer id) {
         sysRoleService.deleteObject(id);

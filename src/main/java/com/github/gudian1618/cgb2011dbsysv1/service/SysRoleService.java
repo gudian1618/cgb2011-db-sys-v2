@@ -27,6 +27,14 @@ public interface SysRoleService {
      */
     int saveObject(SysRole entity, Integer[] menuIds);
 
+    /**
+     * 更新角色以及角色对应的菜单信息
+     * @param entity
+     * @param menuIds
+     * @return
+     */
+    int updateObject(SysRole entity, Integer[] menuIds);
+
     int deleteObject(Integer id);
 
     PageObject<SysRole> findPageObjects(String name, Long pageCurrent);

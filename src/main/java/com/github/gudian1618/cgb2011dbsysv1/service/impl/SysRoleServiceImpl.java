@@ -62,7 +62,30 @@ public class SysRoleServiceImpl implements SysRoleService {
         // 2.保存数据
         // 2.1.保存角色自身信息
         int rows = sysRoleDao.insertObject(entity);
-        // 2.2.保存角色额菜单关系数据
+        // 2.2.保存角色额菜单关系数据,直接添加数据并保存到数据库
+        sysRoleMenuDao.insertObjects(entity.getId(), menuIds);
+        return rows;
+    }
+
+    @Override
+    public int updateObject(SysRole entity, Integer[] menuIds) {
+        // 1.参数校验
+        if (entity==null) {
+            throw new IllegalArgumentException("保存对象不能为空");
+        }
+        if (StringUtils.isEmpty(entity.getName())) {
+            throw new IllegalArgumentException("角色名不能为空");
+        }
+        if (menuIds==null||menuIds.length==0) {
+            throw new IllegalArgumentException("必须为角色授权权限");
+        }
+        // 2.保存数据
+        // 2.1.更新角色自身信息
+        int rows = sysRoleDao.updateObject(entity);
+        // 2.2.更新角色额菜单关系数据
+        // 2.2.1.先删除原有关系数
+        sysRoleMenuDao.deleteObjectsByRoleId(entity.getId());
+        // 2.2.2.再添加新的关系数据
         sysRoleMenuDao.insertObjects(entity.getId(), menuIds);
         return rows;
     }
