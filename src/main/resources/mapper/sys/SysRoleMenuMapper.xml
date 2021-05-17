@@ -8,6 +8,9 @@
         where menu_id=#{menuId}
     </delete>
 
+    <!--<select id="findMenuIdsByRoleId" resultType="java.lang.Integer">-->
+    <!--</select>-->
+
     <insert id="insertObjects">
         insert into sys_role_menus
         (role_id,menu_id)

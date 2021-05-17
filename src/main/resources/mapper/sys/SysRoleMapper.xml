@@ -37,4 +37,11 @@
         select count(*)
         <include refid="queryWhereId"/>
     </select>
+
+    <select id="findObjectById" resultType="com.github.gudian1618.cgb2011dbsysv1.common.vo.SysRoleMenuVo">
+        select id,name,note
+        from sys_roles
+        where id=#{id}
+    </select>
+
 </mapper>

@@ -20,6 +20,11 @@ public class SusRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+    @RequestMapping("doFindObjectById")
+    public JsonResult doFindObjectById(Integer id) {
+        return new JsonResult(sysRoleService.findObjectById(id));
+    }
+
     @RequestMapping("doSaveObject")
     public JsonResult doSaveObject(SysRole entity, Integer[] menuIds) {
         sysRoleService.saveObject(entity, menuIds);

@@ -2,6 +2,7 @@ package com.github.gudian1618.cgb2011dbsysv1.service.impl;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.PageObject;
+import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysRoleMenuVo;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysRoleDao;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysRoleMenuDao;
 import com.github.gudian1618.cgb2011dbsysv1.entity.SysRole;
@@ -26,6 +27,25 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
+
+    @Override
+    public SysRoleMenuVo findObjectById(Integer id) {
+        // 1.参数校验
+        if (id==null||id<1) {
+            throw new IllegalArgumentException("参数无效");
+        }
+        // 2.查询数据并校验
+        // 2.1.查找角色自身信息
+        SysRoleMenuVo rm = sysRoleDao.findObjectById(id);
+        if (rm==null) {
+            throw new ServiceException("对象可能已经不存在");
+        }
+        // 2.2.查找角色对应的菜单id
+        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleId(id);
+        rm.setMenuIds(menuIds);
+        // 3.返回查询结果
+        return rm;
+    }
 
     @Override
     public int saveObject(SysRole entity, Integer[] menuIds) {
