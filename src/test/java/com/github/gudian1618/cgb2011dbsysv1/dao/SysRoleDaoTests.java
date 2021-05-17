@@ -22,11 +22,19 @@ public class SysRoleDaoTests {
     @Autowired
     private SysRoleDao sysRoleDao;
 
+    // 单表多次查询
     @Test
-    public void testFindObjectById() {
+    public void testFindObjectById01() {
         SysRoleMenuVo rm = sysRoleDao.findObjectById(47);
         List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleId(47);
         rm.setMenuIds(menuIds);
+        System.out.println(rm);
+    }
+
+    // 嵌套查询
+    @Test
+    public void testFindObjectById02() {
+        SysRoleMenuVo rm = sysRoleDao.findObjectById(47);
         System.out.println(rm);
     }
 

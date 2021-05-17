@@ -41,8 +41,8 @@ public class SysRoleServiceImpl implements SysRoleService {
             throw new ServiceException("对象可能已经不存在");
         }
         // 2.2.查找角色对应的菜单id
-        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleId(id);
-        rm.setMenuIds(menuIds);
+        // List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleId(id);
+        // rm.setMenuIds(menuIds);
         // 3.返回查询结果
         return rm;
     }
