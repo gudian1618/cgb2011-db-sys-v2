@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.service.impl;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.exception.ServiceException;
+import com.github.gudian1618.cgb2011dbsysv1.common.vo.CheckBox;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysRoleMenuVo;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysRoleDao;
@@ -27,6 +28,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
+
+    @Override
+    public List<CheckBox> findObjects() {
+        return sysRoleDao.findObjects();
+    }
 
     @Override
     public SysRoleMenuVo findObjectById(Integer id) {

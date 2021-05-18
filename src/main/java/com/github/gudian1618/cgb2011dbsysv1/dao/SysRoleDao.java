@@ -1,8 +1,10 @@
 package com.github.gudian1618.cgb2011dbsysv1.dao;
 
+import com.github.gudian1618.cgb2011dbsysv1.common.vo.CheckBox;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysRoleMenuVo;
 import com.github.gudian1618.cgb2011dbsysv1.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -16,10 +18,19 @@ import java.util.List;
 @Mapper
 public interface SysRoleDao {
 
+    /**
+     * 获取所有角色的id和name
+     *
+     * @return
+     */
+    @Select("select id,name from sys_roles")
+    List<CheckBox> findObjects();
+
     SysRoleMenuVo findObjectById(Integer id);
 
     /**
      * 保存角色自身信息
+     *
      * @param entity
      * @return
      */
@@ -27,6 +38,7 @@ public interface SysRoleDao {
 
     /**
      * 更新角色自身信息
+     *
      * @param entity
      * @return
      */
@@ -35,6 +47,7 @@ public interface SysRoleDao {
 
     /**
      * 查询总记录数
+     *
      * @param name
      * @return
      */
@@ -42,6 +55,7 @@ public interface SysRoleDao {
 
     /**
      * 查询当前页记录数
+     *
      * @param name
      * @param startIndex
      * @param pageSize

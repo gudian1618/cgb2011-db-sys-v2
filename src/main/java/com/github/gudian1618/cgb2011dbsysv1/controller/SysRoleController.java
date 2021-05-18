@@ -15,10 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/role/")
-public class SusRoleController {
+public class SysRoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
+
+    @RequestMapping("doFindRoles")
+    public JsonResult doFindObjects() {
+        return new JsonResult(sysRoleService.findObjects());
+    }
 
     @RequestMapping("doFindObjectById")
     public JsonResult doFindObjectById(Integer id) {
