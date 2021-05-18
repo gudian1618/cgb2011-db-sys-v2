@@ -2,6 +2,7 @@ package com.github.gudian1618.cgb2011dbsysv1.dao;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysUserDeptVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -13,6 +14,9 @@ import java.util.List;
 
 @Mapper
 public interface SysUserDao {
+
+    @Update("update sys_users set valid=#{valid},modifiedUser=#{username},modifiedTime=now() where id=#{id}")
+    int validById(Long id, Integer valid, String username);
 
     /**
      * 基于条件查询总记录数

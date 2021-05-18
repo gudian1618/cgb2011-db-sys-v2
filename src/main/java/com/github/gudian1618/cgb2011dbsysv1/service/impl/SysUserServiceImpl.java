@@ -23,6 +23,24 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserDao sysUserDao;
 
     @Override
+    public int validById(Long id, Integer valid) {
+        // 1.参数校验
+        if (id == null || id < 1) {
+            throw new IllegalArgumentException("id值无效");
+        }
+        if (valid != 0 && valid != 1) {
+            throw new IllegalArgumentException("状态值不正确");
+        }
+        // 2.更新状态
+        int rows = sysUserDao.validById(id, valid, "admin");
+        if (rows == 0) {
+            throw new ServiceException("记录可能已经不存在了");
+        }
+        // 3.返回结果
+        return rows;
+    }
+
+    @Override
     public PageObject<SysUserDeptVo> findPageObjects(String username, Long pageCurrent) {
         // 1.参数校验
         if (pageCurrent == null || pageCurrent < 1) {
@@ -30,7 +48,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         // 2.查询总记录数并校验
         long rowCount = sysUserDao.getRowCount(username);
-        if (rowCount==0) {
+        if (rowCount == 0) {
             throw new ServiceException("记录不存在");
         }
         // 3.查询当前页记录

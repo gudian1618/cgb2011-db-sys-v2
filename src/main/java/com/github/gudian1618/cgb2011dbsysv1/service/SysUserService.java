@@ -11,6 +11,8 @@ import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysUserDeptVo;
 
 public interface SysUserService {
 
+    int validById(Long id, Integer valid);
+
     /**
      * 查询当前页要呈现的信息以及分页信息
      * @param username
