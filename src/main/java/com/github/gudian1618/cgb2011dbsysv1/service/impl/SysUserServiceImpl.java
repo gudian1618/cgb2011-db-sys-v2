@@ -86,6 +86,30 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public int updateObject(SysUser entity, Integer[] roleIds) {
+        // 1.参数校验
+        if (entity == null) {
+            throw new IllegalArgumentException("保存对象不能为空");
+        }
+        if (StringUtils.isEmpty(entity.getUsername())) {
+            throw new IllegalArgumentException("用户名不能为空");
+        }
+        // 各种正则表达式验证
+        if (roleIds == null || roleIds.length == 0) {
+            throw new ServiceException("必须为用户制定角色");
+        }
+        // 2.更新用户信息
+        int rows = sysUserDao.updateObject(entity);
+        // 3.更新用户和角色关系数据
+        // 3.1. 基于原有的用户id删除原有的关系数据
+        sysUserRoleDao.deleteObjectsByUserId(entity.getId());
+        // 3.2. 查询用户和角色新的关系数据
+        sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+        // 4.返回结果
+        return rows;
+    }
+
+    @Override
     public int validById(Long id, Integer valid) {
         // 1.参数校验
         if (id == null || id < 1) {

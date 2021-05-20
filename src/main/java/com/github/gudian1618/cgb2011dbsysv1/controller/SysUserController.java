@@ -31,6 +31,12 @@ public class SysUserController {
         return new JsonResult("save ok");
     }
 
+    @RequestMapping("doUpdateObject")
+    public JsonResult doUpdateObject(SysUser entity, Integer[] roleIds) {
+        sysUserService.updateObject(entity, roleIds);
+        return new JsonResult("update ok");
+    }
+
     @RequestMapping("doValidById")
     public JsonResult doValidById(Long id, Integer valid) {
         sysUserService.validById(id, valid);

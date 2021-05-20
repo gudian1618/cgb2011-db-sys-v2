@@ -29,6 +29,14 @@ public interface SysUserService {
      */
     int saveObject(SysUser entity, Integer[] roleIds);
 
+    /**
+     * 更新用户及对应的用户的信息
+     * @param entity
+     * @param roleIds
+     * @return
+     */
+    int updateObject(SysUser entity, Integer[] roleIds);
+
     int validById(Long id, Integer valid);
 
     /**

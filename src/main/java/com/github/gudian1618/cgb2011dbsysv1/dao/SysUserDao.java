@@ -30,6 +30,13 @@ public interface SysUserDao {
      */
     int insertObject(SysUser entity);
 
+    /**
+     * 更新用户自身信息
+     * @param entity
+     * @return
+     */
+    int updateObject(SysUser entity);
+
     @Update("update sys_users set valid=#{valid},modifiedUser=#{username},modifiedTime=now() where id=#{id}")
     int validById(Long id, Integer valid, String username);
 
