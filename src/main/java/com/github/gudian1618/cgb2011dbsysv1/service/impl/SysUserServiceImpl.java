@@ -4,11 +4,16 @@ import com.github.gudian1618.cgb2011dbsysv1.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysUserDeptVo;
 import com.github.gudian1618.cgb2011dbsysv1.dao.SysUserDao;
+import com.github.gudian1618.cgb2011dbsysv1.dao.SysUserRoleDao;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysUser;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysUserService;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author gudian1618
@@ -21,6 +26,43 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserDao sysUserDao;
+
+    @Autowired
+    private SysUserRoleDao sysUserRoleDao;
+
+    @Override
+    public int saveObject(SysUser entity, Integer[] roleIds) {
+        // 1.参数校验
+        if (entity == null) {
+            throw new IllegalArgumentException("保存对象不能为空");
+        }
+        if (StringUtils.isEmpty(entity.getUsername())) {
+            throw new IllegalArgumentException("用户名不能为空");
+        }
+        if (StringUtils.isEmpty(entity.getPassword())) {
+            throw new IllegalArgumentException("密码不能为空");
+        }
+        // 各种正则表达式验证
+        if (roleIds == null || roleIds.length == 0) {
+            throw new ServiceException("必须为用户制定角色");
+        }
+        // 2.保存用户信息
+        // 2.1. 对密码进行加密(md5盐值加密)
+        // md5一种消息摘要算法,第一不可逆,第二相同内容加密结果也相同
+        String salt = UUID.randomUUID().toString();
+        // String hashedPassword = DigestUtils.md5DigestAsHex((salt + entity.getPassword()).getBytes());
+        SimpleHash sh = new SimpleHash("MD5", entity.getPassword(), salt, 1);
+        // 将加密结果转换成16进制
+        String hashedPassword = sh.toHex();
+        entity.setSalt(salt);
+        entity.setPassword(hashedPassword);
+        // 2.2. 保护用户对象
+        int rows = sysUserDao.insertObject(entity);
+        // 3.保存用户和角色关系数据
+        sysUserRoleDao.insertObjects(entity.getId(), roleIds);
+        // 4.返回结果
+        return rows;
+    }
 
     @Override
     public int validById(Long id, Integer valid) {

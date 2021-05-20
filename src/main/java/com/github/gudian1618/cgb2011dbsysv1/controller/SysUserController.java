@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv1.controller;
 
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.JsonResult;
+import com.github.gudian1618.cgb2011dbsysv1.entity.SysUser;
 import com.github.gudian1618.cgb2011dbsysv1.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,12 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @RequestMapping("doSaveObject")
+    public JsonResult doSaveObject(SysUser entity, Integer[] roleIds) {
+        sysUserService.saveObject(entity, roleIds);
+        return new JsonResult("save ok");
+    }
 
     @RequestMapping("doValidById")
     public JsonResult doValidById(Long id, Integer valid) {

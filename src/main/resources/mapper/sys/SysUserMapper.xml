@@ -13,6 +13,18 @@
         </where>
     </sql>
 
+    <insert id="insertObject"
+            parameterType="com.github.gudian1618.cgb2011dbsysv1.entity.SysUser"
+            useGeneratedKeys="true"
+            keyProperty="id">
+            insert into sys_users
+            (username,password,deptId,email,mobile,salt,valid,
+             createdTime,modifiedTime,createdUser,modifiedUser)
+            values
+            (#{username},#{password},#{deptId},#{email},#{mobile},#{salt},#{valid},
+             now(),now(),#{createdUser},#{modifiedUser})
+    </insert>
+
     <!--resultMap用于实现高级映射-->
     <resultMap type="com.github.gudian1618.cgb2011dbsysv1.common.vo.SysUserDeptVo" id="sysUserDeptVo">
         <id property="id" column="id"/>
