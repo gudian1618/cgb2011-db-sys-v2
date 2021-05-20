@@ -17,6 +17,13 @@ import java.util.List;
 public interface SysUserDao {
 
     /**
+     * 基于用户id查询用户以及用户对应的部门信息
+     * @param id
+     * @return
+     */
+    SysUserDeptVo findObjectById(Long id);
+
+    /**
      * 保存用户自身信息
      * @param entity
      * @return

@@ -4,6 +4,8 @@ import com.github.gudian1618.cgb2011dbsysv1.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv1.common.vo.SysUserDeptVo;
 import com.github.gudian1618.cgb2011dbsysv1.entity.SysUser;
 
+import java.util.Map;
+
 /**
  * @author gudian1618
  * @version v1.0
@@ -11,6 +13,13 @@ import com.github.gudian1618.cgb2011dbsysv1.entity.SysUser;
  */
 
 public interface SysUserService {
+
+    /**
+     * 封装查询到的用户信息以及用户对应的角色信息
+     * @param id
+     * @return
+     */
+    Map<String, Object> findObjectById(Long id);
 
     /**
      * 保存用户及对应的用户的信息

@@ -47,4 +47,10 @@
         select count(*)
         <include refid="queryWhereId"/>
     </select>
+
+    <select id="findObjectById" resultMap="sysUserDeptVo">
+        select *
+        from sys_users
+        where id=#{id}
+    </select>
 </mapper>

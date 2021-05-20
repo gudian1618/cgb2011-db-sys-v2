@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -29,6 +31,25 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
+
+    @Override
+    public Map<String, Object> findObjectById(Long id) {
+        // 1.参数校验
+        if (id == null || id < 1) {
+            throw new IllegalArgumentException("id值无效");
+        }
+        // 2.基于id执行查询操作
+        SysUserDeptVo user = sysUserDao.findObjectById(id);
+        if (user == null) {
+            throw new ServiceException("记录可能已经不存在");
+        }
+        List<Integer> roleIds = sysUserRoleDao.findRoleIdsByUserId(id);
+        // 3.封装结果并返回
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", user);
+        map.put("roleIds", roleIds);
+        return map;
+    }
 
     @Override
     public int saveObject(SysUser entity, Integer[] roleIds) {

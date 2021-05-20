@@ -3,6 +3,9 @@ package com.github.gudian1618.cgb2011dbsysv1.dao;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * @author gudian1618
@@ -12,6 +15,14 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface SysUserRoleDao {
+
+    /**
+     * 基于用户id查询角色id
+     * @param id
+     * @return
+     */
+    @Select("select role_id from sys_user_roles where user_id=#{id}")
+    List<Integer> findRoleIdsByUserId(Long id);
 
     /**
      * 保存用户和关系的数据

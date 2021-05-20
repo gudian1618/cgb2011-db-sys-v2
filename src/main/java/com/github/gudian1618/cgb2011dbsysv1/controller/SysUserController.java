@@ -20,6 +20,11 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @RequestMapping("doFindObjectById")
+    public JsonResult doFindObjectById(Long id) {
+        return new JsonResult(sysUserService.findObjectById(id));
+    }
+
     @RequestMapping("doSaveObject")
     public JsonResult doSaveObject(SysUser entity, Integer[] roleIds) {
         sysUserService.saveObject(entity, roleIds);
