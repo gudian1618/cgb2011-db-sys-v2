@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.gudian1618.cgb2011dbsysv1.dao.SysUserRoleDao">
+<mapper namespace="com.github.gudian1618.cgb2011dbsysv2.dao.SysUserRoleDao">
 
     <insert id="insertObjects">
         insert into sys_user_roles

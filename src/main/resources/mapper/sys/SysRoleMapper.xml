@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.gudian1618.cgb2011dbsysv1.dao.SysRoleDao">
+<mapper namespace="com.github.gudian1618.cgb2011dbsysv2.dao.SysRoleDao">
 
     <!--提取共性动态sql语句-->
     <sql id="queryWhereId">
@@ -17,7 +17,7 @@
         1.useGeneratedKeys表示要使用的insert操作后主键值
         2.keyProperty表示将主键值存储到参数对象的id属性上.-->
     <insert id="insertObject"
-            parameterType="com.github.gudian1618.cgb2011dbsysv1.entity.SysRole"
+            parameterType="com.github.gudian1618.cgb2011dbsysv2.entity.SysRole"
             useGeneratedKeys="true"
             keyProperty="id"
             >
@@ -26,7 +26,7 @@
         values (null,#{name},#{note},#{createdUser},#{modifiedUser},now(),now())
     </insert>
 
-    <select id="findPageObjects" resultType="com.github.gudian1618.cgb2011dbsysv1.entity.SysRole">
+    <select id="findPageObjects" resultType="com.github.gudian1618.cgb2011dbsysv2.entity.SysRole">
         select id,name,note,createdTime,modifiedTime,createdUser,modifiedUser
         <include refid="queryWhereId"/>
         order by createdTime desc
@@ -49,7 +49,7 @@
     2.嵌套查询映射
     3.多表关联查询映射
     -->
-    <resultMap id="sysRoleMenuVo" type="com.github.gudian1618.cgb2011dbsysv1.common.vo.SysRoleMenuVo">
+    <resultMap id="sysRoleMenuVo" type="com.github.gudian1618.cgb2011dbsysv2.common.vo.SysRoleMenuVo">
         <!--id元素一般用于主键映射-->
         <!--当字段名与属性名不一致时,需要写如下标签内容来映射,否则一致时,可以省略.
         但是也有条件,例如不会在基于此字段进行嵌套或关联字段查询,否则不能省略-->
