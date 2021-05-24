@@ -1,5 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.ClearCache;
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredCache;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysDeptDao;
@@ -24,6 +26,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysDeptDao sysDeptDao;
 
+    @RequiredCache
     @Override
     public List<Map<String, Object>> findObjects() {
         List<Map<String, Object>> list = sysDeptDao.findObjects();
@@ -58,6 +61,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         return rows;
     }
 
+    @ClearCache
     @Override
     public int updateObject(SysDept entity) {
         //1.合法验证
