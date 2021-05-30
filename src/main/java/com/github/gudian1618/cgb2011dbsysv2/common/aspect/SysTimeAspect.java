@@ -2,6 +2,7 @@ package com.github.gudian1618.cgb2011dbsysv2.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
  * @date 2021/5/24 6:32 下午
  */
 
+@Order(2)
 @Aspect
 @Component
 public class SysTimeAspect {
@@ -45,13 +47,13 @@ public class SysTimeAspect {
      */
     @Around("doTime()")
     public Object doAround(ProceedingJoinPoint jp) throws Throwable {
-        System.out.println("around.before");
+        System.out.println("SysTimeAspect.around.before");
         try {
             Object result = jp.proceed();
-            System.out.println("around.after");
+            System.out.println("SysTimeAspect.around.after");
             return result;
         } catch (Throwable e) {
-            System.out.println("around.exception");
+            System.out.println("SysTimeAspect.around.exception");
             throw e;
         }
     }

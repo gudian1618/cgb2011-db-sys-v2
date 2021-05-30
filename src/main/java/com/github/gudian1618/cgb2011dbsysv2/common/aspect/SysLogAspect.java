@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
  * 2.通知: 在切入点对象的方法执行时,要织入的扩展功能
  */
 
+@Order(1)
 @Aspect
 @Slf4j
 @Component
@@ -33,6 +35,7 @@ public class SysLogAspect {
 
     @Around("doPointCut()")
     public Object around(ProceedingJoinPoint jp) throws Throwable {
+        System.out.println("SysLogAspect.around");
         // 记录方法执行时的开始时间
         long t1 = System.currentTimeMillis();
         try {
