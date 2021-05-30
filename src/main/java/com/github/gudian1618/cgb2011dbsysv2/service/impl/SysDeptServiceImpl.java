@@ -26,7 +26,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysDeptDao sysDeptDao;
 
-    @RequiredCache
+    @RequiredCache(key = "deptData")
     @Override
     public List<Map<String, Object>> findObjects() {
         List<Map<String, Object>> list = sysDeptDao.findObjects();
@@ -61,7 +61,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         return rows;
     }
 
-    @ClearCache
+    @ClearCache(key = "deptData")
     @Override
     public int updateObject(SysDept entity) {
         //1.合法验证

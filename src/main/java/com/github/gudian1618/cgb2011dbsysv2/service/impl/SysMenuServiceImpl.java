@@ -1,5 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.ClearCache;
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredCache;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysMenuDao;
@@ -59,11 +61,12 @@ public class SysMenuServiceImpl implements SysMenuService {
         return sysMenuDao.findZtreeMenuNodes();
     }
 
+    @ClearCache(key = "menuData")
     @Override
     public int deleteObjects(Integer id) {
         // 1.验证数据的合法性
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("清先选择");
+            throw new IllegalArgumentException("id值无效");
         }
         // 2.基于id进行子元素查询
         int count = sysMenuDao.getChildCount(id);
@@ -80,6 +83,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         return rows;
     }
 
+    @RequiredCache(key = "menuData")
     @Override
     public List<Map<String, Object>> findObjects() {
         return sysMenuDao.findObjects();

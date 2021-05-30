@@ -19,6 +19,8 @@ spring:
     suffix: .html
     check-template-location: true
     cache: false
+  aop:
+    proxy-target-class: true
 
 # mybatis
 mybatis:
