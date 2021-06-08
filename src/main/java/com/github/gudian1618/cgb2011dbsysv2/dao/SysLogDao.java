@@ -15,6 +15,8 @@ import java.util.List;
 @Mapper
 public interface SysLogDao {
 
+    int insertObject(SysLog entity);
+
     /**
      * 基于id值执行删除操作
      * @param ids

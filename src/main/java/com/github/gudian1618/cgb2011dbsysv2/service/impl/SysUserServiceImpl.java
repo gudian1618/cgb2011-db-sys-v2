@@ -1,5 +1,6 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredLog;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
@@ -109,6 +110,8 @@ public class SysUserServiceImpl implements SysUserService {
         return rows;
     }
 
+
+    @RequiredLog(operation = "禁用启用")
     @Override
     public int validById(Long id, Integer valid) {
         // 1.参数校验
@@ -127,6 +130,7 @@ public class SysUserServiceImpl implements SysUserService {
         return rows;
     }
 
+    @RequiredLog(operation = "用户查询")
     @Override
     public PageObject<SysUserDeptVo> findPageObjects(String username, Long pageCurrent) {
         // 1.参数校验

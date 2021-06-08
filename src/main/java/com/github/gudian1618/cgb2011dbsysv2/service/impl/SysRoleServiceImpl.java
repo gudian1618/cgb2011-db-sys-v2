@@ -1,5 +1,6 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
+import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredLog;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.CheckBox;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.PageObject;
@@ -53,6 +54,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         return rm;
     }
 
+    @RequiredLog(operation = "保存角色")
     @Override
     public int saveObject(SysRole entity, Integer[] menuIds) {
         // 1.参数校验
@@ -112,6 +114,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         return 0;
     }
 
+    @RequiredLog(operation = "角色查询")
     @Override
     public PageObject<SysRole> findPageObjects(String name, Long pageCurrent) {
         // 1.参数校验

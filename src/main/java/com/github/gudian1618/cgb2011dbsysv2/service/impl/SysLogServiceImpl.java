@@ -23,6 +23,11 @@ public class SysLogServiceImpl implements SysLogService {
     private SysLogDao sysLogDao;
 
     @Override
+    public void saveObject(SysLog entity) {
+        sysLogDao.insertObject(entity);
+    }
+
+    @Override
     public int deleteObjects(int... ids) {
         if (ids == null || ids.length == 0) {
             throw new IllegalArgumentException("请选择");

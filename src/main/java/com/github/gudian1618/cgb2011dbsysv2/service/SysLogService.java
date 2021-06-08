@@ -11,6 +11,8 @@ import com.github.gudian1618.cgb2011dbsysv2.entity.SysLog;
 
 public interface SysLogService {
 
+    void saveObject(SysLog entity);
+
     /**
      * 基于id删除信息
      * @param ids
