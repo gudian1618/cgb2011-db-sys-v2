@@ -22,6 +22,22 @@ spring:
   aop:
     proxy-target-class: true
 
+  task:
+    execution:
+      pool:
+        queue-capacity: 128
+        core-size: 5
+        max-size: 128
+        keep-alive: 60000
+      thread-name-prefix: db-service-task-
+  async:
+    task:
+      corePoolSize: 10
+      maxPoolSize: 100
+      keepAliveSeconds: 60
+      queueCapacity: 128
+      threadNamePrefix: db-async-service-task-
+
 # mybatis
 mybatis:
   configuration:
