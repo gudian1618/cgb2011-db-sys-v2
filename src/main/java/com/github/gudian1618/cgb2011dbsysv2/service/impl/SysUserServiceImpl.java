@@ -11,6 +11,9 @@ import com.github.gudian1618.cgb2011dbsysv2.service.SysUserService;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -24,6 +27,11 @@ import java.util.UUID;
  * @date 2021/5/18 9:41 下午
  */
 
+@Transactional(timeout = 30,
+    isolation = Isolation.READ_COMMITTED,
+    rollbackFor = Throwable.class,
+    readOnly = false,
+    propagation = Propagation.REQUIRED)
 @Service
 public class SysUserServiceImpl implements SysUserService {
 
@@ -33,6 +41,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
 
+    @Transactional(readOnly = true)
     @Override
     public Map<String, Object> findObjectById(Long id) {
         // 1.参数校验
@@ -110,7 +119,7 @@ public class SysUserServiceImpl implements SysUserService {
         return rows;
     }
 
-
+    @Transactional
     @RequiredLog(operation = "禁用启用")
     @Override
     public int validById(Long id, Integer valid) {
@@ -131,8 +140,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @RequiredLog(operation = "用户查询")
+    @Transactional(readOnly = true)
     @Override
     public PageObject<SysUserDeptVo> findPageObjects(String username, Long pageCurrent) {
+        String tName = Thread.currentThread().getName();
+        System.out.println("SysUserService.findPageObjects-->" + tName);
         // 1.参数校验
         if (pageCurrent == null || pageCurrent < 1) {
             throw new IllegalArgumentException("当前页码值无效");

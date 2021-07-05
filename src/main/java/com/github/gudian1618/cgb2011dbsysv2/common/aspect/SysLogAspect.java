@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -27,7 +26,7 @@ import java.util.Date;
  * 2.通知: 在切入点对象的方法执行时,要织入的扩展功能
  */
 
-@Order(1)
+// @Order(1)
 @Aspect
 @Slf4j
 @Component
@@ -97,7 +96,11 @@ public class SysLogAspect {
         entity.setTime(time);
         entity.setCreatedTime(new Date());
         // 3.保存用户行为数据(写入到数据库中)
+        // sysLogService.saveObject(entity);
+        // 通过添加线程(从线程池里创建,不建议显式的独立创建线程)
+
         sysLogService.saveObject(entity);
+
     }
 
 }

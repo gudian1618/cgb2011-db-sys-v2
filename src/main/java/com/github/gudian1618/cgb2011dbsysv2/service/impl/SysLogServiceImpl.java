@@ -6,7 +6,10 @@ import com.github.gudian1618.cgb2011dbsysv2.dao.SysLogDao;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysLog;
 import com.github.gudian1618.cgb2011dbsysv2.service.SysLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,8 +25,23 @@ public class SysLogServiceImpl implements SysLogService {
     @Autowired
     private SysLogDao sysLogDao;
 
+    /**
+     * @Async 描述的方法会运行在一个异步线程中
+     * @param entity
+     */
+    @Async
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void saveObject(SysLog entity) {
+        String tName = Thread.currentThread().getName();
+        System.out.println("SysLogServiceImpl.saveObject-->" + tName);
+        // ...
+        // 模拟写日志操作
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         sysLogDao.insertObject(entity);
     }
 
