@@ -1,13 +1,13 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
-import com.github.gudian1618.cgb2011dbsysv2.common.annotation.ClearCache;
-import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredCache;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysDeptDao;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysDept;
 import com.github.gudian1618.cgb2011dbsysv2.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -26,7 +26,10 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Autowired
     private SysDeptDao sysDeptDao;
 
-    @RequiredCache(key = "deptData")
+    // 注释在自己定义的缓存,避免与spring自带的缓存调用冲突
+    // @RequiredCache(key = "deptData")
+
+    @Cacheable(value = "deptCache")
     @Override
     public List<Map<String, Object>> findObjects() {
         List<Map<String, Object>> list = sysDeptDao.findObjects();
@@ -45,6 +48,8 @@ public class SysDeptServiceImpl implements SysDeptService {
         return list;
     }
 
+    // @CacheEvict表示方法执行ok后,要清除缓存数据,allEntries表示所有
+    @CacheEvict(value = "deptCache", allEntries = true)
     @Override
     public int saveObject(SysDept entity) {
         // 1.合法验证
@@ -61,7 +66,9 @@ public class SysDeptServiceImpl implements SysDeptService {
         return rows;
     }
 
-    @ClearCache(key = "deptData")
+    // @ClearCache(key = "deptData")
+
+    @CacheEvict(value = "deptCache", allEntries = true)
     @Override
     public int updateObject(SysDept entity) {
         //1.合法验证
