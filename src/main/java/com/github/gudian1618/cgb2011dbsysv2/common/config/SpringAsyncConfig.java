@@ -1,4 +1,4 @@
-package com.github.gudian1618.cgb2011dbsysv2.common.annotation;
+package com.github.gudian1618.cgb2011dbsysv2.common.config;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
