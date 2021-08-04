@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.common.config;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ public class SpringShiroConfig {
 
     /**
      * 配置shiro中的核心对象:安全管理器
-     * @Bean 此注解描述的方法会交个ispring框架管理,默认的名字为方法名
+     *
+     * @Bean 此注解描述的方法会交个ispring框架管理, 默认的名字为方法名
      */
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager(Realm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+        securityManager.setRealm(realm);
         return securityManager;
     }
 
@@ -45,6 +48,7 @@ public class SpringShiroConfig {
         map.put("/build/**", "anon");
         map.put("/dist/**", "anon");
         map.put("/plugins/**", "anon");
+        map.put("/user/doLogin", "anon");
         // 除了匿名资源,其他都需要认证("authc")后访问
         map.put("/**", "authc");
         sBean.setFilterChainDefinitionMap(map);

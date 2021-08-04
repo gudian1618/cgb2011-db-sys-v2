@@ -3,6 +3,7 @@ package com.github.gudian1618.cgb2011dbsysv2.dao;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -16,8 +17,12 @@ import java.util.List;
 @Mapper
 public interface SysUserDao {
 
+    @Select("select * from sys_users where username=#{username}")
+    SysUser findUserByUserName(String username);
+
     /**
      * 基于用户id查询用户以及用户对应的部门信息
+     *
      * @param id
      * @return
      */
@@ -25,6 +30,7 @@ public interface SysUserDao {
 
     /**
      * 保存用户自身信息
+     *
      * @param entity
      * @return
      */
@@ -32,6 +38,7 @@ public interface SysUserDao {
 
     /**
      * 更新用户自身信息
+     *
      * @param entity
      * @return
      */
@@ -42,6 +49,7 @@ public interface SysUserDao {
 
     /**
      * 基于条件查询总记录数
+     *
      * @param username
      * @return
      */
@@ -49,6 +57,7 @@ public interface SysUserDao {
 
     /**
      * 基于条件查询当前页记录
+     *
      * @param username
      * @param startIndex
      * @param pageSize
