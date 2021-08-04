@@ -49,6 +49,8 @@ public class SpringShiroConfig {
         map.put("/dist/**", "anon");
         map.put("/plugins/**", "anon");
         map.put("/user/doLogin", "anon");
+        // logout由shiro提供
+        map.put("/doLogout", "logout");
         // 除了匿名资源,其他都需要认证("authc")后访问
         map.put("/**", "authc");
         sBean.setFilterChainDefinitionMap(map);

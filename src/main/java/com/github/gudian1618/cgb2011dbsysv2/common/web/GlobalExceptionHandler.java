@@ -6,9 +6,9 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @author gudian1618
@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 局部异常类的异常处理方法优先级更高,覆盖全局异常类的异常处理方法
  */
 
-@ControllerAdvice
+// @ControllerAdvice
+// @ResponseBody
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ShiroException.class)
-    @ResponseBody
+    // @ResponseBody
     public JsonResult doHandleShiroException(
         ShiroException e) {
         JsonResult r = new JsonResult();
