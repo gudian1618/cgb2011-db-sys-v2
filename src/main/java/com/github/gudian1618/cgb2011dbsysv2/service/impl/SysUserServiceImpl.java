@@ -8,6 +8,7 @@ import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserDao;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserRoleDao;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
 import com.github.gudian1618.cgb2011dbsysv2.service.SysUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,6 +120,16 @@ public class SysUserServiceImpl implements SysUserService {
         return rows;
     }
 
+    /**
+     * shiro框架通过@RequiresPermissions注解定义切入点,在这里表示访问此方法需要进行授权
+     * 1.系统基于登录用户获取用户权限
+     * 2.当用户权限中包含@RequiresPermissions注解中定义权限标识,就标识用户拥有这个访问权限
+     * 3.拥有权限时则可以有shiro框架进行授权访问
+     * @param id
+     * @param valid
+     * @return
+     */
+    @RequiresPermissions("sys:user:update")
     @Transactional
     @RequiredLog(operation = "禁用启用")
     @Override

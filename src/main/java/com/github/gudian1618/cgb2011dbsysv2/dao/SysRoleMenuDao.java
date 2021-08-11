@@ -19,8 +19,11 @@ public interface SysRoleMenuDao {
     @Select("select menu_id from sys_role_menus where role_id=#{id}")
     List<Integer> findMenuIdsByRoleId(Integer id);
 
+    List<Integer> findMenuIdsByRoleIds(@Param("roleIds") Integer[] roleIds);
+
     /**
      * 保存角色和菜单的关系数据
+     *
      * @param roleId
      * @param menuIds
      * @return
@@ -29,6 +32,7 @@ public interface SysRoleMenuDao {
 
     /**
      * 基于角色id删除角色菜单关系数据
+     *
      * @param roleId
      * @return
      */
@@ -37,6 +41,7 @@ public interface SysRoleMenuDao {
 
     /**
      * 基于菜单id删除角色菜单关系数据
+     *
      * @param menuId
      * @return
      */

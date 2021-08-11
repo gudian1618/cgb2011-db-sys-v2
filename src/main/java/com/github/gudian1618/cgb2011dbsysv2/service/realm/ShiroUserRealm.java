@@ -1,16 +1,26 @@
 package com.github.gudian1618.cgb2011dbsysv2.service.realm;
 
+import com.github.gudian1618.cgb2011dbsysv2.dao.SysMenuDao;
+import com.github.gudian1618.cgb2011dbsysv2.dao.SysRoleMenuDao;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserDao;
+import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserRoleDao;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author gudian1618
@@ -24,9 +34,51 @@ public class ShiroUserRealm extends AuthorizingRealm {
     @Autowired
     private SysUserDao sysUserDao;
 
+    @Autowired
+    private SysUserRoleDao sysUserRoleDao;
+
+    @Autowired
+    private SysRoleMenuDao sysRoleMenuDao;
+
+    @Autowired
+    private SysMenuDao sysMenuDao;
+
+    /**
+     * 负责获取登录用户的权限信息并进行封装
+     *
+     * @param principals
+     * @return
+     */
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // 1.获取登录用户身份信息
+        SysUser user = (SysUser) principals.getPrimaryPrincipal();
+        // 2.基于用户id获取角色id
+        List<Integer> roleIds = sysUserRoleDao.findRoleIdsByUserId(user.getId());
+        if (roleIds == null || roleIds.size() == 0) {
+            throw new AuthenticationException();
+        }
+        // 3.基于角色id获取对应的菜单id
+        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleIds(roleIds.toArray(new Integer[]{}));
+        if (menuIds == null || menuIds.size() == 0) {
+            throw new AuthorizationException();
+        }
+        // 4.基于菜单id获取授权标识
+        List<String> permissions = sysMenuDao.findPermissions(menuIds.toArray(new Integer[]{}));
+        if (permissions == null || permissions.size() == 0) {
+            throw new AuthorizationException();
+        }
+        // 5.对用户权限信息进行封装
+        Set<String> stringPermissions = new HashSet<>();
+        for (String per : permissions) {
+            if (!StringUtils.isEmpty(per)) {
+                stringPermissions.add(per);
+            }
+        }
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(stringPermissions);
+        // 此对象会返回给SecurityManager
+        return info;
     }
 
     /**
@@ -58,11 +110,11 @@ public class ShiroUserRealm extends AuthorizingRealm {
         // 2.1.获取用户对象
         SysUser user = sysUserDao.findUserByUserName(username);
         // 2.2.验证对象是否存在
-        if (user==null) {
+        if (user == null) {
             throw new UnknownAccountException();
         }
         // 2.3.检查用户是否被禁用
-        if (user.getValid()==0) {
+        if (user.getValid() == 0) {
             throw new LockedAccountException();
         }
         // 3.封装用户信息并返回

@@ -15,7 +15,7 @@ import java.util.Date;
 public class SysUser implements Serializable {
 
     private static final long serialVersionUID = -8575736934181928744L;
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
     private String salt;//盐值

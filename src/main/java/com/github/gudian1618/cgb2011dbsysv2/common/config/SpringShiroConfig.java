@@ -2,6 +2,7 @@ package com.github.gudian1618.cgb2011dbsysv2.common.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,19 @@ public class SpringShiroConfig {
         map.put("/**", "authc");
         sBean.setFilterChainDefinitionMap(map);
         return sBean;
+    }
+
+    /**
+     * shiro框架授权配置
+     * shiro框架中的授权是基于spring中AOP规范做了一个具体实现
+     * @param securityManager
+     * @return
+     */
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor (SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor= new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
     }
 
 

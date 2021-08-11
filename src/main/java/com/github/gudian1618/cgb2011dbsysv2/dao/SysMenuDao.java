@@ -3,6 +3,7 @@ package com.github.gudian1618.cgb2011dbsysv2.dao;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.Node;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.Map;
 
 @Mapper
 public interface SysMenuDao {
+
+    List<String> findPermissions(@Param("menuIds") Integer[] menuIds);
 
     /**
      * 更新修改对象

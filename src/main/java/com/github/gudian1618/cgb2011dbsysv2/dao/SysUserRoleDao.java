@@ -30,7 +30,7 @@ public interface SysUserRoleDao {
      * @param roleIds
      * @return
      */
-    int insertObjects(@Param("userId")Integer userId, @Param("roleIds")Integer[] roleIds);
+    int insertObjects(@Param("userId")Long userId, @Param("roleIds")Integer[] roleIds);
 
     /**
      * 基于角色id删除角色用户关系数据
@@ -46,6 +46,6 @@ public interface SysUserRoleDao {
      * @return
      */
     @Delete("delete from sys_user_roles where user_id=#{userId}")
-    int deleteObjectsByUserId(Integer userId);
+    int deleteObjectsByUserId(Long userId);
 
 }
