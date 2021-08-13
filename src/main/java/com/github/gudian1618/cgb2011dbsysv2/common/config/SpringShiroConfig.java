@@ -1,5 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.common.config;
 
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -26,9 +28,10 @@ public class SpringShiroConfig {
      * @Bean 此注解描述的方法会交个ispring框架管理, 默认的名字为方法名
      */
     @Bean
-    public SecurityManager securityManager(Realm realm) {
+    public SecurityManager securityManager(Realm realm, CacheManager cacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
+        securityManager.setCacheManager(cacheManager);
         return securityManager;
     }
 
@@ -71,5 +74,12 @@ public class SpringShiroConfig {
         return advisor;
     }
 
+    /**
+     * 非核心业务
+     */
+    @Bean
+    public CacheManager shiroCacheManager () {
+        return new MemoryConstrainedCacheManager();
+    }
 
 }

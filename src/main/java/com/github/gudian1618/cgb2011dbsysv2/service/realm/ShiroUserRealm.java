@@ -51,20 +51,22 @@ public class ShiroUserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        System.out.println("==doGetAuthorizationInfo==");
         // 1.获取登录用户身份信息
         SysUser user = (SysUser) principals.getPrimaryPrincipal();
         // 2.基于用户id获取角色id
         List<Integer> roleIds = sysUserRoleDao.findRoleIdsByUserId(user.getId());
         if (roleIds == null || roleIds.size() == 0) {
-            throw new AuthenticationException();
+            throw new AuthorizationException();
         }
+        Integer[] array={};
         // 3.基于角色id获取对应的菜单id
-        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleIds(roleIds.toArray(new Integer[]{}));
+        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleIds(roleIds.toArray(array));
         if (menuIds == null || menuIds.size() == 0) {
             throw new AuthorizationException();
         }
         // 4.基于菜单id获取授权标识
-        List<String> permissions = sysMenuDao.findPermissions(menuIds.toArray(new Integer[]{}));
+        List<String> permissions = sysMenuDao.findPermissions(menuIds.toArray(array));
         if (permissions == null || permissions.size() == 0) {
             throw new AuthorizationException();
         }
@@ -118,7 +120,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
         // 3.封装用户信息并返回
-        ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt().getBytes());
+        ByteSource credentialsSalt = ByteSource.Util.bytes(user.getSalt());
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(
             user,   // 用户身份
             user.getPassword(),   // 已经加密的密码

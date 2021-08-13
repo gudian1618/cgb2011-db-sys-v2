@@ -7,16 +7,19 @@
         delete from sys_role_menus
         where menu_id=#{menuId}
     </delete>
-    <select id="findMenuIdsByRoleIds" resultType="int">
+
+    <select id="findMenuIdsByRoleIds"
+            resultType="int">
         select menu_id
         from sys_role_menus
-        <where>
-            <foreach collection="roleIds"
-                     separator="or"
-                     item="roleId">
-                role_id=#{roleId}
-            </foreach>
-        </where>
+        where role_id in
+        <foreach collection="roleIds"
+                 open="("
+                 close=")"
+                 separator=","
+                 item="item">
+            #{item}
+        </foreach>
     </select>
 
     <!--<select id="findMenuIdsByRoleId" resultType="java.lang.Integer">-->

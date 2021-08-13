@@ -48,7 +48,6 @@ mybatis:
 
 # spring.thymeleaf
 
-
 # log
 logging:
   level:
