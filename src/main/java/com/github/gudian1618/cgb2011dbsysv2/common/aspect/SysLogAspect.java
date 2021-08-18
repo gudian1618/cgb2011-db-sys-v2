@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.common.aspect;
 
 import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredLog;
+import com.github.gudian1618.cgb2011dbsysv2.common.util.ShiroUtils;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysLog;
 import com.github.gudian1618.cgb2011dbsysv2.service.SysLogService;
 import lombok.extern.slf4j.Slf4j;
@@ -89,7 +90,7 @@ public class SysLogAspect {
         // 2.封装用户息行为数据
         SysLog entity = new SysLog();
         entity.setIp("192.168.1.1");
-        entity.setUsername("admin");
+        entity.setUsername(ShiroUtils.getUsername());
         entity.setOperation(operation);
         entity.setMethod(targetClsMethodName);
         entity.setParams(params);

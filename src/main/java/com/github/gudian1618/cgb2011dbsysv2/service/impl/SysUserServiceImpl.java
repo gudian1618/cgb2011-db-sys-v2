@@ -2,6 +2,7 @@ package com.github.gudian1618.cgb2011dbsysv2.service.impl;
 
 import com.github.gudian1618.cgb2011dbsysv2.common.annotation.RequiredLog;
 import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
+import com.github.gudian1618.cgb2011dbsysv2.common.util.ShiroUtils;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserDao;
@@ -142,7 +143,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new IllegalArgumentException("状态值不正确");
         }
         // 2.更新状态
-        int rows = sysUserDao.validById(id, valid, "admin");
+        int rows = sysUserDao.validById(id, valid, ShiroUtils.getUsername());
         if (rows == 0) {
             throw new ServiceException("记录可能已经不存在了");
         }
