@@ -2,11 +2,14 @@ package com.github.gudian1618.cgb2011dbsysv2.common.config;
 
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,16 +25,26 @@ import java.util.LinkedHashMap;
 @Configuration
 public class SpringShiroConfig {
 
+    @Bean
+    public RememberMeManager rememberMeManager() {
+        CookieRememberMeManager cManager = new CookieRememberMeManager();
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        cookie.setMaxAge(7 * 24 * 60);
+        cManager.setCookie(cookie);
+        return cManager;
+    }
+
     /**
      * 配置shiro中的核心对象:安全管理器
      *
-     * @Bean 此注解描述的方法会交个ispring框架管理, 默认的名字为方法名
+     * @Bean 此注解描述的方法会交个spring框架管理, 默认的名字为方法名
      */
     @Bean
-    public SecurityManager securityManager(Realm realm, CacheManager cacheManager) {
+    public SecurityManager securityManager(Realm realm, CacheManager cacheManager, RememberMeManager rememberMeManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(realm);
         securityManager.setCacheManager(cacheManager);
+        securityManager.setRememberMeManager(rememberMeManager);
         return securityManager;
     }
 
@@ -56,7 +69,9 @@ public class SpringShiroConfig {
         // logout由shiro提供
         map.put("/doLogout", "logout");
         // 除了匿名资源,其他都需要认证("authc")后访问
-        map.put("/**", "authc");
+        // map.put("/**", "authc");
+        // 记住我功能需要使用user功能
+        map.put("/**", "user");
         sBean.setFilterChainDefinitionMap(map);
         return sBean;
     }
@@ -64,12 +79,13 @@ public class SpringShiroConfig {
     /**
      * shiro框架授权配置
      * shiro框架中的授权是基于spring中AOP规范做了一个具体实现
+     *
      * @param securityManager
      * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor (SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor advisor= new AuthorizationAttributeSourceAdvisor();
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
     }
@@ -78,7 +94,7 @@ public class SpringShiroConfig {
      * 非核心业务
      */
     @Bean
-    public CacheManager shiroCacheManager () {
+    public CacheManager shiroCacheManager() {
         return new MemoryConstrainedCacheManager();
     }
 

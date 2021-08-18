@@ -59,7 +59,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
         if (roleIds == null || roleIds.size() == 0) {
             throw new AuthorizationException();
         }
-        Integer[] array={};
+        Integer[] array = {};
         // 3.基于角色id获取对应的菜单id
         List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleIds(roleIds.toArray(array));
         if (menuIds == null || menuIds.size() == 0) {

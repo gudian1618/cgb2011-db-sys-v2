@@ -32,16 +32,16 @@ DROP TABLE IF EXISTS `sys_depts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_depts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL COMMENT '资源名称',
-  `parentId` int(11) DEFAULT NULL COMMENT '上级部门',
-  `sort` int(11) DEFAULT NULL COMMENT '排序',
-  `note` varchar(100) DEFAULT NULL COMMENT '备注',
-  `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
-  `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
-  `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
-  `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`id`)
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `name` varchar(50) DEFAULT NULL COMMENT '资源名称',
+                             `parentId` int(11) DEFAULT NULL COMMENT '上级部门',
+                             `sort` int(11) DEFAULT NULL COMMENT '排序',
+                             `note` varchar(100) DEFAULT NULL COMMENT '备注',
+                             `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
+                             `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
+                             `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
+                             `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='部门管理';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,15 +63,15 @@ DROP TABLE IF EXISTS `sys_logs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_logs` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL COMMENT '用户名',
-  `operation` varchar(50) DEFAULT NULL COMMENT '用户操作',
-  `method` varchar(200) DEFAULT NULL COMMENT '请求方法',
-  `params` varchar(5000) DEFAULT NULL COMMENT '请求参数',
-  `time` bigint(20) NOT NULL COMMENT '执行时长(毫秒)',
-  `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
-  `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `username` varchar(50) DEFAULT NULL COMMENT '用户名',
+                            `operation` varchar(50) DEFAULT NULL COMMENT '用户操作',
+                            `method` varchar(200) DEFAULT NULL COMMENT '请求方法',
+                            `params` varchar(5000) DEFAULT NULL COMMENT '请求参数',
+                            `time` bigint(20) NOT NULL COMMENT '执行时长(毫秒)',
+                            `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
+                            `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
+                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,19 +93,19 @@ DROP TABLE IF EXISTS `sys_menus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_menus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL COMMENT '资源名称',
-  `url` varchar(200) DEFAULT NULL COMMENT '资源URL',
-  `type` int(11) DEFAULT NULL COMMENT '类型     1：菜单   2：按钮',
-  `sort` int(11) DEFAULT NULL COMMENT '排序',
-  `note` varchar(100) DEFAULT NULL COMMENT '备注',
-  `parentId` int(11) DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
-  `permission` varchar(500) DEFAULT NULL COMMENT '授权(如：user:create)',
-  `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
-  `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
-  `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
-  `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`id`)
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `name` varchar(50) DEFAULT NULL COMMENT '资源名称',
+                             `url` varchar(200) DEFAULT NULL COMMENT '资源URL',
+                             `type` int(11) DEFAULT NULL COMMENT '类型     1：菜单   2：按钮',
+                             `sort` int(11) DEFAULT NULL COMMENT '排序',
+                             `note` varchar(100) DEFAULT NULL COMMENT '备注',
+                             `parentId` int(11) DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
+                             `permission` varchar(500) DEFAULT NULL COMMENT '授权(如：user:create)',
+                             `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
+                             `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
+                             `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
+                             `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8 COMMENT='资源管理';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -127,10 +127,10 @@ DROP TABLE IF EXISTS `sys_role_menus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_role_menus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
-  `menu_id` int(11) DEFAULT NULL COMMENT 'ID',
-  PRIMARY KEY (`id`)
+                                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                                  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+                                  `menu_id` int(11) DEFAULT NULL COMMENT 'ID',
+                                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1308 DEFAULT CHARSET=utf8 COMMENT='角色与菜单对应关系';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -152,14 +152,14 @@ DROP TABLE IF EXISTS `sys_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_roles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL COMMENT '角色名称',
-  `note` varchar(500) DEFAULT NULL COMMENT '备注',
-  `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
-  `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
-  `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
-  `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`id`)
+                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                             `name` varchar(100) DEFAULT NULL COMMENT '角色名称',
+                             `note` varchar(500) DEFAULT NULL COMMENT '备注',
+                             `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
+                             `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
+                             `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
+                             `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='角色';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -181,10 +181,10 @@ DROP TABLE IF EXISTS `sys_user_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_user_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
-  PRIMARY KEY (`id`)
+                                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                                  `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
+                                  `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
+                                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,20 +206,20 @@ DROP TABLE IF EXISTS `sys_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sys_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL COMMENT '用户名',
-  `password` varchar(100) DEFAULT NULL COMMENT '密码',
-  `salt` varchar(50) DEFAULT NULL COMMENT '盐  密码加密时前缀，使加密后的值不同',
-  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
-  `mobile` varchar(100) DEFAULT NULL COMMENT '手机号',
-  `valid` tinyint(4) DEFAULT NULL COMMENT '状态  0：禁用   1：正常  默认值 ：1',
-  `deptId` int(11) DEFAULT NULL,
-  `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
-  `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
-  `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
-  `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
+                             `id` int(11) NOT NULL AUTO_INCREMENT,
+                             `username` varchar(50) NOT NULL COMMENT '用户名',
+                             `password` varchar(100) DEFAULT NULL COMMENT '密码',
+                             `salt` varchar(50) DEFAULT NULL COMMENT '盐  密码加密时前缀，使加密后的值不同',
+                             `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+                             `mobile` varchar(100) DEFAULT NULL COMMENT '手机号',
+                             `valid` tinyint(4) DEFAULT NULL COMMENT '状态  0：禁用   1：正常  默认值 ：1',
+                             `deptId` int(11) DEFAULT NULL,
+                             `createdTime` datetime DEFAULT NULL COMMENT '创建时间',
+                             `modifiedTime` datetime DEFAULT NULL COMMENT '修改时间',
+                             `createdUser` varchar(20) DEFAULT NULL COMMENT '创建用户',
+                             `modifiedUser` varchar(20) DEFAULT NULL COMMENT '修改用户',
+                             PRIMARY KEY (`id`),
+                             UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='系统用户';
 /*!40101 SET character_set_client = @saved_cs_client */;
 

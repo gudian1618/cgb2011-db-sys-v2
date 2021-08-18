@@ -24,13 +24,17 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @RequestMapping("doLogin")
-    public JsonResult doLogin(String username, String password) {
+    public JsonResult doLogin(String username, String password, boolean isRememberMe) {
         // 1.获取subject对象
         Subject subject = SecurityUtils.getSubject();
         // 2.提交用户请求
         UsernamePasswordToken token = new UsernamePasswordToken();
         token.setUsername(username);
         token.setPassword(password.toCharArray());
+        // if (isRememberMe != null) {
+        //     token.setRememberMe(isRememberMe);
+        // }
+        token.setRememberMe(isRememberMe);
         subject.login(token);
         return new JsonResult("login ok");
     }
