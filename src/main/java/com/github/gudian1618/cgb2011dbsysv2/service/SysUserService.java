@@ -2,8 +2,10 @@ package com.github.gudian1618.cgb2011dbsysv2.service;
 
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
+import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,6 +15,13 @@ import java.util.Map;
  */
 
 public interface SysUserService {
+
+    /**
+     * 基于用户id查询用户对应的菜单信息(一级菜单,二级菜单)
+     * @param id
+     * @return
+     */
+    List<SysUserMenuVo> findUserMenusByUserId(Long id);
 
     int updatePassword(String password, String newPassword, String cfgPassword);
 

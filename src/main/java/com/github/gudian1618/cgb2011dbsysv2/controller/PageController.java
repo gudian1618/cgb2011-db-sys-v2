@@ -1,11 +1,16 @@
 package com.github.gudian1618.cgb2011dbsysv2.controller;
 
 import com.github.gudian1618.cgb2011dbsysv2.common.util.ShiroUtils;
+import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
+import com.github.gudian1618.cgb2011dbsysv2.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author gudian1618
@@ -18,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
+    @Autowired
+    private SysUserService sysUserService;
+
     @RequestMapping("doLoginUI")
     public String doLoginUI() {
         return "login";
@@ -27,6 +35,8 @@ public class PageController {
     public String doIndexUI(Model model) {
         SysUser user = ShiroUtils.getUser();
         model.addAttribute("username", user.getUsername());
+        List<SysUserMenuVo> userMenus = sysUserService.findUserMenusByUserId(user.getId());
+        model.addAttribute("userMenus", userMenus);
         return "starter";
         // 1.starter会返回给DispatcherServlet对象
         // 2.DispatcherServlet会将viewname交给视图解析器

@@ -53,4 +53,32 @@
         </foreach>
     </select>
 
+    <resultMap type="com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo" id="sysUserMenuVo">
+        <!-- 一级菜单映射 -->
+        <id  property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <!-- 二级菜单映射 -->
+        <collection property="childs" ofType="com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo">
+            <id  property="id" column="cid"/>
+            <result property="name" column="cname"/>
+            <result property="url" column="curl"/>
+        </collection>
+    </resultMap>
+    <select id="findMenusByIds" resultMap="sysUserMenuVo">
+        select p.id,p.name,p.url,c.id cid,c.name cname,c.url curl
+        from sys_menus p join sys_menus c
+        on c.parentId=p.id
+        <where>
+            <foreach collection="menuIds"
+                     open="("
+                     close=")"
+                     separator="or"
+                     item="menuId">
+                c.id=#{menuId}
+            </foreach>
+            and p.parentId is null
+        </where>
+    </select>
+
 </mapper>

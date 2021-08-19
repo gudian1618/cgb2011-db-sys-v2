@@ -5,6 +5,9 @@ import com.github.gudian1618.cgb2011dbsysv2.common.exception.ServiceException;
 import com.github.gudian1618.cgb2011dbsysv2.common.util.ShiroUtils;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.PageObject;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
+import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo;
+import com.github.gudian1618.cgb2011dbsysv2.dao.SysMenuDao;
+import com.github.gudian1618.cgb2011dbsysv2.dao.SysRoleMenuDao;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserDao;
 import com.github.gudian1618.cgb2011dbsysv2.dao.SysUserRoleDao;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
@@ -43,6 +46,22 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
 
+    @Autowired
+    private SysRoleMenuDao sysRoleMenuDao;
+
+    @Autowired
+    private SysMenuDao sysMenuDao;
+
+    @Override
+    public List<SysUserMenuVo> findUserMenusByUserId(Long id) {
+        // 1.基于用户id获取用户对应的角色id
+        List<Integer> roleIds = sysUserRoleDao.findRoleIdsByUserId(id);
+        // 2.基于角色id获取角色对应的菜单id
+        List<Integer> menuIds = sysRoleMenuDao.findMenuIdsByRoleIds(roleIds.toArray(new Integer[]{}));
+        // 3.基于菜单id获取用户对应的菜单
+        return sysMenuDao.findMenusByIds(menuIds);
+    }
+
     @Override
     public int updatePassword(String password, String newPassword, String cfgPassword) {
         // 1.参数校验
@@ -66,7 +85,7 @@ public class SysUserServiceImpl implements SysUserService {
             throw new IllegalArgumentException("原密码不正确");
         }
         // 2.修改密码
-        salt=UUID.randomUUID().toString();
+        salt = UUID.randomUUID().toString();
         sh = new SimpleHash("MD5", newPassword, salt, 1);
         String hashedNewPassword = sh.toHex();
         int rows = sysUserDao.updatePassword(hashedNewPassword, salt, user.getId());

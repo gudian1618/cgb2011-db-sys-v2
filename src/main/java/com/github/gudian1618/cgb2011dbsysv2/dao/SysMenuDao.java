@@ -1,6 +1,7 @@
 package com.github.gudian1618.cgb2011dbsysv2.dao;
 
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.Node;
+import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserMenuVo;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysMenu;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,8 @@ import java.util.Map;
 
 @Mapper
 public interface SysMenuDao {
+
+    List<SysUserMenuVo> findMenusByIds(@Param("menuIds")List<Integer> menuIds);
 
     List<String> findPermissions(@Param("menuIds") Integer[] menuIds);
 
