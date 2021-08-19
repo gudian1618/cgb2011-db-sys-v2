@@ -3,6 +3,7 @@ package com.github.gudian1618.cgb2011dbsysv2.dao;
 import com.github.gudian1618.cgb2011dbsysv2.common.vo.SysUserDeptVo;
 import com.github.gudian1618.cgb2011dbsysv2.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -16,6 +17,9 @@ import java.util.List;
 
 @Mapper
 public interface SysUserDao {
+
+    @Update("update sys_users set password=#{password},salt=#{salt},modifiedTime=now() where id=#{id}")
+    int updatePassword(@Param("password")String password, @Param("salt")String salt, @Param("id")Long id);
 
     @Select("select * from sys_users where username=#{username}")
     SysUser findUserByUserName(String username);

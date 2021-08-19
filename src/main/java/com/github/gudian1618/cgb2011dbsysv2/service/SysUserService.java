@@ -14,6 +14,8 @@ import java.util.Map;
 
 public interface SysUserService {
 
+    int updatePassword(String password, String newPassword, String cfgPassword);
+
     /**
      * 封装查询到的用户信息以及用户对应的角色信息
      * @param id

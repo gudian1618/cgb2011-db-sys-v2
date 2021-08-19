@@ -43,6 +43,37 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
 
+    @Override
+    public int updatePassword(String password, String newPassword, String cfgPassword) {
+        // 1.参数校验
+        // 1.1 非空校验
+        if (StringUtils.isEmpty(password)) {
+            throw new IllegalArgumentException("原密码不能为空");
+        }
+        if (StringUtils.isEmpty(newPassword)) {
+            throw new IllegalArgumentException("新密码不能为空");
+        }
+        // 1.2.等值校验
+        if (!newPassword.equals(cfgPassword)) {
+            throw new IllegalArgumentException("新密码与密码确认不一致");
+        }
+        // 1.3 校验原密码是否正确
+        SysUser user = ShiroUtils.getUser();
+        String salt = user.getSalt();
+        String hashedPassword = user.getPassword();
+        SimpleHash sh = new SimpleHash("MD5", password, salt, 1);
+        if (!hashedPassword.equals(sh.toHex())) {
+            throw new IllegalArgumentException("原密码不正确");
+        }
+        // 2.修改密码
+        salt=UUID.randomUUID().toString();
+        sh = new SimpleHash("MD5", newPassword, salt, 1);
+        String hashedNewPassword = sh.toHex();
+        int rows = sysUserDao.updatePassword(hashedNewPassword, salt, user.getId());
+        // 3.返回结果
+        return rows;
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Map<String, Object> findObjectById(Long id) {
@@ -126,6 +157,7 @@ public class SysUserServiceImpl implements SysUserService {
      * 1.系统基于登录用户获取用户权限
      * 2.当用户权限中包含@RequiresPermissions注解中定义权限标识,就标识用户拥有这个访问权限
      * 3.拥有权限时则可以有shiro框架进行授权访问
+     *
      * @param id
      * @param valid
      * @return

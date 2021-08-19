@@ -23,6 +23,12 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @RequestMapping("doUpdatePassword")
+    public JsonResult doUpdatePassword(String pwd,String newPwd, String cfgPwd) {
+        sysUserService.updatePassword(pwd, newPwd, cfgPwd);
+        return new JsonResult("update ok");
+    }
+
     @RequestMapping("doLogin")
     public JsonResult doLogin(String username, String password, boolean isRememberMe) {
         // 1.获取subject对象
